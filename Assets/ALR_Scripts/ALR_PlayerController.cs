@@ -324,6 +324,7 @@ public class ALR_PlayerController : MonoBehaviour
 
     void AnimationUpdate() // PAS DE MODIFICATION ICI
     {
+        animator.SetBool("IsIdle", movementVector.x == 0);
         animator.SetBool("IsMoving", movementVector.x != 0);
         animator.SetBool("IsGrounded", isGrounded);
 
