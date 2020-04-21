@@ -48,7 +48,8 @@ public class ALR_PlayerController : MonoBehaviour
     public bool leftKeyDown, leftKey, leftKeyUp,
         rightKeyDown, rightKey, rightKeyUp,
         jumpKeyDown, jumpKey, jumpKeyUp,
-        changeWorldKey, changeWorldKeyDown, changeWorldKeyUp;
+        changeWorldKey, changeWorldKeyDown, changeWorldKeyUp,
+        deathKey, deathKeyDown, deathKeyUp;
 
     [Header("Debug")]                                    //ENLEVER CECI
     public Transform fakeGroundLevel;                    //ENLEVER CECI
@@ -86,12 +87,12 @@ public class ALR_PlayerController : MonoBehaviour
     void Start()  // PAS DE MODIFICATION ICI
     {
         timeSinceJumped = 0.12f;
-        jumpsAllowedLeft = maxJumpsAllowed;             //ENLEVER CECI
+        status.LastCheckpoint = self.position;
     }
 
     void FixedUpdate()   // MODIF ICI WALL JUMP + STICK WALL !
     {
-       
+        DeathHandle();
         InputUpdate();
         JumpUpdate();
         // POUR LE STICK WALL : 
@@ -101,7 +102,6 @@ public class ALR_PlayerController : MonoBehaviour
 
         MovementUpdate();
         PostMovementJumpUpdate();
-        DebugUpdate();                          //ENLEVER CECI
         AnimationUpdate();
     }
 
@@ -111,6 +111,10 @@ public class ALR_PlayerController : MonoBehaviour
         //Reset movement
         movementVector = Vector2.zero;
 
+        if (deathKey)
+        {
+            status.HealthPoint = 0;
+        }
         //Check if player make horizontal movement
         if (leftKey)
             movementVector.x--;
@@ -311,17 +315,6 @@ public class ALR_PlayerController : MonoBehaviour
         Move(finalVector);
     }
 
-    void DebugUpdate() // PAS DE MODIFICATION ICI       //ENLEVER CECI ?
-    {
-        if (!debugMode) return;
-
-        if(self.position.y <= fakeGroundLevel.position.y)
-        {
-            jumpsAllowedLeft = maxJumpsAllowed;
-            self.position = new Vector3(self.position.x, fakeGroundLevel.position.y, self.position.z);
-        }
-    }
-
     void AnimationUpdate() // PAS DE MODIFICATION ICI
     {
         animator.SetBool("IsIdle", movementVector.x == 0);
@@ -405,7 +398,9 @@ public class ALR_PlayerController : MonoBehaviour
             movement.x = 0;
 
         if (movement.y != 0)
+        {
             movement.y = raycaster.CastBoxVertical(movement.y);
+        }
         if (Mathf.Abs(movement.y) < movementThreshold)
             movement.y = 0;
 
@@ -413,7 +408,6 @@ public class ALR_PlayerController : MonoBehaviour
         if (movement.x < 0) raycaster.flags.right = false;
         if (movement.y > 0) raycaster.flags.below = false;
         if (movement.y < 0) raycaster.flags.above = false;
-
         self.Translate(movement);
     }
 
@@ -470,6 +464,17 @@ public class ALR_PlayerController : MonoBehaviour
         if (wJump.y < 0) raycaster.flags.above = false;
   
         self.Translate(wJump);
+    }
+
+    void DeathHandle()
+    {
+        Debug.Log("HP : " + status.HealthPoint);
+        if (status.HealthPoint <= 0)
+        {
+            Debug.Log("Death");
+            self.position = status.LastCheckpoint;
+            status.HealthPoint = status.MaxHealthPoint;
+        }
     }
 
 }

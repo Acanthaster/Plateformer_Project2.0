@@ -6,8 +6,10 @@ public class AXD_PlayerStatus : MonoBehaviour
 {
     [Header("World")]
     public bool LivingWorld;
+    public Vector2 LastCheckpoint;
 
     [Header("Health")]
+    public int MaxHealthPoint;
     public int HealthPoint;
 
     [Header("Collectibles")]
@@ -19,14 +21,8 @@ public class AXD_PlayerStatus : MonoBehaviour
     void Start()
     {
         LivingWorld = true;
-        HealthPoint = 5;
+        HealthPoint = MaxHealthPoint = 5;
         Corn = 0;
         Cacao = 0;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

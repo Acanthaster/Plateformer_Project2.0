@@ -9,6 +9,7 @@ public class ALR_InputHandler : MonoBehaviour
     public KeyCode right = KeyCode.RightArrow;
     public KeyCode jump = KeyCode.Space;
     public KeyCode changeWorld = KeyCode.S;
+    public KeyCode instantDeath = KeyCode.P;
 
     public ALR_PlayerController controller;
     void Update()
@@ -28,5 +29,9 @@ public class ALR_InputHandler : MonoBehaviour
         controller.changeWorldKey = Input.GetKey(changeWorld);
         controller.changeWorldKeyDown = Input.GetKeyDown(changeWorld);
         controller.changeWorldKeyUp = Input.GetKeyUp(changeWorld);
+
+        controller.deathKey = Input.GetKey(instantDeath);
+        controller.deathKeyDown = Input.GetKeyDown(instantDeath);
+        controller.deathKeyUp = Input.GetKeyUp(instantDeath);
     }
 }
