@@ -43,6 +43,8 @@ public class ALR_PlayerController : MonoBehaviour
     public SpriteRenderer sprite;
     public Animator animator;
     public AXD_PlayerStatus status;
+                                                //RAJOUT DU CODE D'ELIOTT
+    public ELC_DontFallAnymore dontFall;
 
     [System.NonSerialized]
     public bool leftKeyDown, leftKey, leftKeyUp,
@@ -292,7 +294,7 @@ public class ALR_PlayerController : MonoBehaviour
 
     void MovementUpdate()   // MODIF ICI WALL JUMP + STICK WALL
     {
-        if (isWallJumping || stickToWall)
+        if (isWallJumping || stickToWall || dontFall.playerIsInGround)           //CHANGEMENT ELIOTT ICI
             return;
 
         if (movementVector.x == 0)

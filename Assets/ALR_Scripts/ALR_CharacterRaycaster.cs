@@ -39,16 +39,17 @@ public class ALR_CharacterRaycaster : MonoBehaviour
             Mathf.Abs(distance),
             layerMask);
 
-        if(result.collider != null)
+        if (result.collider != null)
         {
             float startPoint = self.position.x + (box.size.x * self.lossyScale.x * 0.5f * Mathf.Sign(distance));
             float newDistance = Mathf.Sign(distance) * Mathf.Abs(result.point.x - startPoint);
 
             if (distance < 0)
                 flags.left = true;
+                
             if (distance > 0)
                 flags.right = true;
-
+                
             if(collisionEmitter)
             {
                 if (distance < 0)
@@ -100,6 +101,7 @@ public class ALR_CharacterRaycaster : MonoBehaviour
 
             if (distance < 0)
                 flags.below = true;
+                
             if (distance > 0)
                 flags.above = true;
 
