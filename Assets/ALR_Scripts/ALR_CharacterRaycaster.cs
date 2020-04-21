@@ -41,7 +41,7 @@ public class ALR_CharacterRaycaster : MonoBehaviour
             Mathf.Abs(distance),
             layerMask);
 
-        if(result.collider != null)
+        if (result.collider != null)
         {
             if (result.collider.isTrigger && result.collider.tag == "Corn" || result.collider.tag == "Cacao" || result.collider.tag == "Checkpoint")
             {
@@ -69,9 +69,10 @@ public class ALR_CharacterRaycaster : MonoBehaviour
 
             if (distance < 0 )
                 flags.left = true;
+                
             if (distance > 0)
                 flags.right = true;
-
+                
             if(collisionEmitter)
             {
                 if (distance < 0)
@@ -147,6 +148,7 @@ public class ALR_CharacterRaycaster : MonoBehaviour
 
             if (distance < 0)
                 flags.below = true;
+                
             if (distance > 0)
                 flags.above = true;
 
