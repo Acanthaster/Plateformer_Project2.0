@@ -61,7 +61,7 @@ public class ALR_CustomCharacterController : MonoBehaviour
 	protected LayerMask collisionMask;
     protected ALR_PhysicsConfig pConfig; //S'occupe de gérer les layers de collisions et les paramètres de base de la physique
     private ALR_CharacterData cData; // Configuration des paramètres du personnage et de ses actions
-
+    private AXD_PlayerStatus pStatus;
  
 
         //COLLISION
@@ -115,6 +115,7 @@ public class ALR_CustomCharacterController : MonoBehaviour
    
     public void Start()
     {
+        pStatus = GetComponent<AXD_PlayerStatus>();
         animator = GetComponent<Animator>();
         cData = GetComponent<ALR_CharacterData>();
         myCollider = GetComponent<BoxCollider2D>();
@@ -166,14 +167,34 @@ public class ALR_CustomCharacterController : MonoBehaviour
             // On fait le raycast
             RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * dirX, rayLength, collisionMask);
             Debug.DrawRay(rayOrigin, Vector2.right * dirX * rayLength, Color.red);
-
-
             if (hit) 
             {
                 float angle = Vector2.Angle(hit.normal, Vector2.up);
+                Debug.Log("Collider : " + hit.collider);
+                if (hit.collider.isTrigger && hit.collider.CompareTag("Corn") || hit.collider.CompareTag("Cacao") || hit.collider.CompareTag("Checkpoint"))
+                {
+                    if (hit.collider.CompareTag("Corn"))
+                    {
 
+                        pStatus.Corn += 1;
+                        Destroy(hit.collider.gameObject);
+
+                    }
+                    else if (hit.collider.CompareTag("Cacao"))
+                    {
+                        pStatus.Cacao += 1;
+                        Destroy(hit.collider.gameObject);
+                    }
+                    else if (hit.collider.CompareTag( "Checkpoint"))
+                    {
+                        pStatus.LastCheckpoint = hit.collider.transform.position;
+                    }
+
+                    return;
+                }
                 if (!(i == 0)) 
                 {
+                    
                     deltaMove.x = Mathf.Min(Mathf.Abs(deltaMove.x), (hit.distance - skinWidth)) * dirX;
                     rayLength = Mathf.Min(Mathf.Abs(deltaMove.x) + skinWidth, hit.distance);
 
@@ -184,7 +205,7 @@ public class ALR_CustomCharacterController : MonoBehaviour
                         collisions.onWall = true;
                         collisions.left = dirX < 0;
                         collisions.right = dirX > 0;
-                        Debug.Log("ON WALL ! ");
+                        //Debug.Log("ON WALL ! ");
                         speed.x = 0;
                         externalForce.x = 0;
                     } 
@@ -220,6 +241,28 @@ public class ALR_CustomCharacterController : MonoBehaviour
 
             if (hit) 
             {
+                Debug.Log("Collider : " + hit.collider);
+                if (hit.collider.isTrigger && hit.collider.CompareTag("Corn") || hit.collider.CompareTag("Cacao") || hit.collider.CompareTag("Checkpoint"))
+                {
+                    if (hit.collider.CompareTag("Corn"))
+                    {
+
+                        pStatus.Corn += 1;
+                        Destroy(hit.collider.gameObject);
+
+                    }
+                    else if (hit.collider.CompareTag("Cacao"))
+                    {
+                        pStatus.Cacao += 1;
+                        Destroy(hit.collider.gameObject);
+                    }
+                    else if (hit.collider.CompareTag("Checkpoint"))
+                    {
+                        pStatus.LastCheckpoint = hit.collider.transform.position;
+                    }
+
+                    return;
+                }
                 deltaMove.y = (hit.distance - skinWidth) * dirY;
                 rayLength = hit.distance;  
 
@@ -266,7 +309,7 @@ public class ALR_CustomCharacterController : MonoBehaviour
         // Si player en contact avec un mur, on check les conditions de WallSlide
         if (collisions.onWall && cData.canWallSlide && TotalSpeed.y <= 0) 
         {    
-            Debug.Log("Wall Sliding !");      
+            //Debug.Log("Wall Sliding !");      
             externalForce.y = 0;
             speed.y = -cData.wallSlideSpeed;
         }
@@ -361,7 +404,7 @@ public class ALR_CustomCharacterController : MonoBehaviour
         {
             if (collisions.onGround || (cData.canWallJump && collisions.onWall) || isGhostJumping)
             {
-                Debug.Log(isGhostJumping);
+                //Debug.Log(isGhostJumping);
                 float height = cData.maxJumpHeight;
                 speed.y = Mathf.Sqrt(-2 * pConfig.gravity * height);
                 externalForce.y = 0;

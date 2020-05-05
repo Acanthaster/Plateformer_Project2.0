@@ -42,7 +42,7 @@ public class ALR_PlayerInputHandler : MonoBehaviour
             
             else if (!charac.collisions.onGround )
             {
-                Debug.Log("Buffering !");
+                //Debug.Log("Buffering !");
                 checkingOnAir = false;
                 isbufferedJumping = true;
             }
@@ -61,7 +61,7 @@ public class ALR_PlayerInputHandler : MonoBehaviour
 
                 timeSinceJumpInput = 0f;
                 isbufferedJumping = false;
-                Debug.Log("Buffered Jump !");
+                //Debug.Log("Buffered Jump !");
 
             } 
             
@@ -69,7 +69,7 @@ public class ALR_PlayerInputHandler : MonoBehaviour
             {
                 timeSinceJumpInput = 0f;
                isbufferedJumping = false;
-                Debug.Log("NO Buffered Jump !");
+                //Debug.Log("NO Buffered Jump !");
             }
         }
 

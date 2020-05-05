@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7168144951221867438}
   - component: {fileID: 2877204974044273547}
   - component: {fileID: 3739886755904512403}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cacao
   m_TagString: Cacao
   m_Icon: {fileID: 0}
