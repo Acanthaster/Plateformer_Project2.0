@@ -1,0 +1,235 @@
+fileFormatVersion: 2
+guid: 120fecc977431644aab6e52872b82669
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1518052869251766932
+    second: Tilesmap_Ajouts02_0
+  - first:
+      213: 7920899069166703994
+    second: Tilesmap_Ajouts02_1
+  - first:
+      213: -6030013229937632578
+    second: Tilesmap_Ajouts02_2
+  - first:
+      213: -6880582245731879534
+    second: Tilesmap_Ajouts02_3
+  - first:
+      213: 5881308152771505418
+    second: Tilesmap_Ajouts02_4
+  - first:
+      213: -5908511777404229184
+    second: Tilesmap_Ajouts02_5
+  - first:
+      213: 7782465472618705257
+    second: Tilesmap_Ajouts02_6
+  - first:
+      213: -5787465409069327579
+    second: Tilesmap_Ajouts02_7
+  - first:
+      213: -8715526449873686028
+    second: Tilesmap_Ajouts02_8
+  - first:
+      213: 7034556470993836058
+    second: Tilesmap_Ajouts02_9
+  - first:
+      213: -7525914556982081917
+    second: Tilesmap_Ajouts02_10
+  - first:
+      213: 2682996778272800632
+    second: Tilesmap_Ajouts02_11
+  - first:
+      213: -6387962161144877325
+    second: Tilesmap_Ajouts02_12
+  - first:
+      213: -5140081332409762701
+    second: Tilesmap_Ajouts02_13
+  - first:
+      213: 180182285530172471
+    second: Tilesmap_Ajouts02_14
+  - first:
+      213: -5621810921071924420
+    second: Tilesmap_Ajouts02_15
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 39.1
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Tilesmap_Ajouts02_5
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 43
+        width: 40
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c9eb94d7dfb00ea0800000000000000
+      internalID: -5908511777404229184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tilesmap_Ajouts02_7
+      rect:
+        serializedVersion: 2
+        x: 299
+        y: 43
+        width: 40
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 52bdf8eafdaceafa0800000000000000
+      internalID: -5787465409069327579
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tilesmap_Ajouts02_13
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 1
+        width: 40
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37c7911f243caa8b0800000000000000
+      internalID: -5140081332409762701
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tilesmap_Ajouts02_15
+      rect:
+        serializedVersion: 2
+        x: 299
+        y: 1
+        width: 40
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c3ba81fb0c05bf1b0800000000000000
+      internalID: -5621810921071924420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
