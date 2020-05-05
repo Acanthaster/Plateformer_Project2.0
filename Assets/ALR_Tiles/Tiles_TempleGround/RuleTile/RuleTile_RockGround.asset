@@ -40,7 +40,7 @@ MonoBehaviour:
     - {fileID: 5632491105827898360, guid: e2005d6508b58704c9464c4cdbbdb550, type: 3}
     m_GameObject: {fileID: 0}
     m_AnimationSpeed: 1
-    m_PerlinScale: 0.1
+    m_PerlinScale: 0.59
     m_Output: 1
     m_ColliderType: 1
     m_RandomTransform: 0

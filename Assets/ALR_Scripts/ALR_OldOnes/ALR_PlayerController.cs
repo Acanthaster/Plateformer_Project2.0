@@ -470,6 +470,7 @@ public class ALR_PlayerController : MonoBehaviour
 
     void DeathHandle()
     {
+        Debug.Log("HP : " + status.HealthPoint);
         if (status.HealthPoint <= 0)
         {
             Debug.Log("Death");

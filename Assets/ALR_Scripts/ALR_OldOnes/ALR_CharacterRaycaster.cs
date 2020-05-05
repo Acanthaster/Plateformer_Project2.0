@@ -32,6 +32,7 @@ public class ALR_CharacterRaycaster : MonoBehaviour
 
     public float CastBoxHorizontal(float distance)
     {
+        
         RaycastHit2D result = Physics2D.BoxCast(
             self.position,
             new Vector2(box.size.x * self.lossyScale.x * skinWidthMultiplier, box.size.y * self.lossyScale.y * skinWidthMultiplier),
@@ -46,8 +47,10 @@ public class ALR_CharacterRaycaster : MonoBehaviour
             {
                 if (result.collider.tag == "Corn")
                 {
+
                     playerController.status.Corn += 1;
                     Destroy(result.collider.gameObject);
+
                 }
                 else if (result.collider.tag == "Cacao")
                 {
@@ -58,6 +61,7 @@ public class ALR_CharacterRaycaster : MonoBehaviour
                 {
                     playerController.status.LastCheckpoint = result.collider.transform.position;
                 }
+
                 return distance;
             }
             float startPoint = self.position.x + (box.size.x * self.lossyScale.x * 0.5f * Mathf.Sign(distance));
