@@ -23,49 +23,59 @@ public class AXD_WorldSwitch : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (PlayerStatus.controller.changeWorldKeyDown)
+
+        //If we are in the living world tilemap
+        if(gameObject.name == "LivingWorld")
         {
-            //If we are in the living world tilemap
-            if(gameObject.name == "LivingWorld")
+            //If the player is in the living world
+            if(PlayerStatus.LivingWorld)
             {
-                //If the player is in the living world
-                if(PlayerStatus.LivingWorld == true)
-                {
-                    //The player goes in the dead world
-                    CurrentWorld = false;
-                    mapRenderer.enabled = !mapRenderer.enabled; 
-                    mapCollider.enabled = !mapCollider.enabled;
-
-                }
-                else
-                {
-                    //The player goes in the living world
-                    CurrentWorld = true;
-                    mapRenderer.enabled = !mapRenderer.enabled;
-                    mapCollider.enabled = !mapCollider.enabled;
-
-                }
-            }else if(gameObject.name == "DeadWorld") // If we are in the dead world tilemap
-            {
-                //If the player is in the living world
-                if (PlayerStatus.LivingWorld == true)
+                if (!mapRenderer.enabled && !mapCollider.enabled)
                 {
                     //The player goes in the dead world
                     CurrentWorld = true;
                     mapRenderer.enabled = !mapRenderer.enabled;
                     mapCollider.enabled = !mapCollider.enabled;
                 }
-                else
+
+            }
+            else
+            {
+                //The player goes in the living world
+                if (mapRenderer.enabled && mapCollider.enabled)
                 {
-                    //The player goes in the living world
                     CurrentWorld = false;
                     mapRenderer.enabled = !mapRenderer.enabled;
                     mapCollider.enabled = !mapCollider.enabled;
                 }
 
             }
+        }else if(gameObject.name == "DeadWorld") // If we are in the dead world tilemap
+        {
+            //If the player is in the living world
+            if (PlayerStatus.LivingWorld)
+            {
+                if (mapRenderer.enabled && mapCollider.enabled)
+                {
+                    //The player goes in the dead world
+                    CurrentWorld = false;
+                    mapRenderer.enabled = !mapRenderer.enabled;
+                    mapCollider.enabled = !mapCollider.enabled;
+                }
+
+            }
+            else
+            {
+                //The player goes in the living world
+                if (!mapRenderer.enabled && !mapCollider.enabled)
+                {
+                    CurrentWorld = true;
+                    mapRenderer.enabled = !mapRenderer.enabled;
+                    mapCollider.enabled = !mapCollider.enabled;
+                }
+            }
+
         }
-
-
+        
     }
 }

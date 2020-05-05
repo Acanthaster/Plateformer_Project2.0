@@ -10,16 +10,19 @@ public class ALR_PlayerInputHandler : MonoBehaviour
 
 	private ALR_CustomCharacterController charac;
     private ALR_CharacterData cData;
+    private AXD_PlayerStatus pStatus;
 
     bool checkingOnAir = false;
     bool isbufferedJumping = false;
     bool isGhostJumping = false;
+    
 
     float timeSinceJumpInput;
     float timeCheckGhostJump;
 
     void Start()
     {
+        pStatus = GetComponent<AXD_PlayerStatus>();
         charac = GetComponent<ALR_CustomCharacterController>();
         cData = GetComponent<ALR_CharacterData>();
     }
@@ -128,16 +131,12 @@ public class ALR_PlayerInputHandler : MonoBehaviour
             charac.EndJump();
          }
 
-
-
-
-
         // POUR LE SWITCH DE MONDE
 
-         
-        /*if (Input.GetKeyDown("joystick button 4"))
+        //World Switch = Right Bumper
+        if (Input.GetButtonDown("World Switch"))
         {
-
-        }*/
+            pStatus.ChangeWorld();
+        }
     }
 }

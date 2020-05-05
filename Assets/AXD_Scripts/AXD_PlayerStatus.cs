@@ -18,7 +18,6 @@ public class AXD_PlayerStatus : MonoBehaviour
     public int Corn;
     public int Cacao;
 
-    public ALR_PlayerController controller;
     // Start is called before the first frame update
     void Start()
     {
@@ -37,6 +36,11 @@ public class AXD_PlayerStatus : MonoBehaviour
             HealthPoint--;
             invincible = Time.time + invincibilityCoolDown;
         }
+    }
+
+    public void ChangeWorld()
+    {
+        LivingWorld = !LivingWorld;
     }
     
 }
