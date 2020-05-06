@@ -31,7 +31,7 @@ public class ALR_PhysicsConfig : MonoBehaviour
 
         if (characterCollisionMask == 0) 
         {
-            characterCollisionMask = LayerMask.GetMask("TempleGround", "Collectibles");
+            characterCollisionMask = LayerMask.GetMask("TempleGround", "Collectibles", "CheckPoint");
         }
 
         if (characterMask == 0) 

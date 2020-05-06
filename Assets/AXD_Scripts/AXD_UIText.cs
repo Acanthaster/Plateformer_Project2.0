@@ -18,7 +18,7 @@ public class AXD_UIText : MonoBehaviour
         if (this.tag.Equals("Corn") && !status.Corn.ToString().Equals(display.text))
         {
             display.text = status.Corn.ToString();
-        }else if (this.tag.Equals("Cacao") && !status.Corn.ToString().Equals(display.text))
+        }else if (this.tag.Equals("Cacao") && !status.Cacao.ToString().Equals(display.text))
         {
             display.text = status.Cacao.ToString();
         }
