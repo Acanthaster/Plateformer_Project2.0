@@ -10,46 +10,69 @@ public class AXD_LifeUI : MonoBehaviour
     public AXD_LifeSprites sp;
     public AXD_PlayerStatus status;
     Transform trans;
+    GameObject lifePoints;
     int lastHP;
     void Start()
     {
         lastHP = status.MaxHealthPoint;
         trans = GetComponent<Transform>();
+        lifePoints = new GameObject("LifePoints");
+        lifePoints.transform.SetParent(this.transform);
         for (int i = 0; i < status.MaxHealthPoint; i++)
         {
              
             Instantiate(icon, new Vector3(transform.position.x-GetComponent<RectTransform>().rect.xMax + icon.rectTransform.rect.width + i * 50,
-                transform.position.y+icon.rectTransform.rect.height, transform.position.z), transform.rotation, transform);
+                transform.position.y+icon.rectTransform.rect.height, transform.position.z), transform.rotation, lifePoints.transform);
         }
     }
     private void Update()
     {
-        Debug.Log("Last HP : " + lastHP+"\nHP : "+status.HealthPoint);
+        //Debug.Log("Last HP : " + lastHP+"\nHP : "+status.HealthPoint);
         UI_Update();
     }
 
     public void UI_Update()
     {
-        if (status.HealthPoint < lastHP)
+        //Si les PV réels sont inférieurs aux PV affichés
+        if(status.dead)
         {
-            for (int i = status.HealthPoint; i < lastHP; i++)
+            for(int i = 0; i < status.MaxHealthPoint; i++)
             {
-                GameObject obj = trans.GetChild(i).gameObject;
-                if(obj != null)
-                {
-                    obj.GetComponent<AXD_LifeSprites>().ChangeSprite(false);
-                }
-                
-            }
-        }else if(status.HealthPoint > lastHP)
-        {
-            for (int i = lastHP; i < status.HealthPoint; i++)
-            {
-                GameObject obj = trans.GetChild(i).gameObject;
+                GameObject obj = lifePoints.transform.GetChild(i).gameObject;
                 if (obj != null)
                 {
                     obj.GetComponent<AXD_LifeSprites>().ChangeSprite(true);
                 }
+            }
+            lastHP = status.MaxHealthPoint;
+            status.dead = false;
+        }
+        else if (status.HealthPoint <= lastHP)
+        {
+            //Pour chaque PV qui sont mal affichés (affichés rempli alors qu'ils doivent être vide)
+            for (int i = status.HealthPoint; i < lastHP; i++)
+            {
+                GameObject obj = lifePoints.transform.GetChild(i).gameObject;
+                if (obj != null)
+                {
+                    obj.GetComponent<AXD_LifeSprites>().ChangeSprite(false);
+                }
+                lastHP = i;
+
+            }
+            //Si les PV réels sont suppérieurs aux PV indiqués
+        }
+        else if (status.HealthPoint > lastHP)
+        {
+            for (int i = lastHP; i < status.HealthPoint; i++)
+            {
+                GameObject obj = lifePoints.transform.GetChild(i).gameObject;
+                if (obj != null)
+                {
+                    obj.GetComponent<AXD_LifeSprites>().ChangeSprite(true);
+
+                }
+                lastHP = i;
 
             }
         }

@@ -181,7 +181,7 @@ public class ALR_CustomCharacterController : MonoBehaviour
             if (hit) 
             {
                 float angle = Vector2.Angle(hit.normal, Vector2.up);
-                Debug.Log("Collider : " + hit.collider);
+                //Debug.Log("Collider : " + hit.collider + "\nLayer : " + LayerMask.LayerToName( hit.collider.gameObject.layer));
                 if (hit.collider.isTrigger && hit.collider.CompareTag("Corn") || hit.collider.CompareTag("Cacao") || hit.collider.CompareTag("Checkpoint"))
                 {
                     if (hit.collider.CompareTag("Corn"))
@@ -202,6 +202,9 @@ public class ALR_CustomCharacterController : MonoBehaviour
                     }
 
                     return;
+                }else if (LayerMask.LayerToName(hit.collider.gameObject.layer).Equals("Obstacles"))
+                {
+                    pStatus.TakingDamage();
                 }
 
                 if (!(i == 10000)) 
@@ -255,7 +258,8 @@ public class ALR_CustomCharacterController : MonoBehaviour
 
             if (hit) 
             {
-                Debug.Log("Collider : " + hit.collider);
+                //Debug.Log("Collider : " + hit.collider+"\nLayer : " + hit.collider.gameObject.layer);
+               
                 if (hit.collider.isTrigger && hit.collider.CompareTag("Corn") || hit.collider.CompareTag("Cacao") || hit.collider.CompareTag("Checkpoint"))
                 {
                     if (hit.collider.CompareTag("Corn"))
@@ -276,6 +280,10 @@ public class ALR_CustomCharacterController : MonoBehaviour
                     }
 
                     return;
+                }
+                else if (LayerMask.LayerToName(hit.collider.gameObject.layer).Equals("Obstacles"))
+                {
+                    pStatus.TakingDamage();
                 }
                 deltaMove.y = (hit.distance - skinWidth) * dirY;
                 rayLength = hit.distance;  

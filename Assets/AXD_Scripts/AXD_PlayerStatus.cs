@@ -6,6 +6,7 @@ public class AXD_PlayerStatus : MonoBehaviour
 {
     float invincible;
     float invincibilityCoolDown;
+    public bool dead;
     [Header("World")]
     public bool LivingWorld;
     public Vector2 LastCheckpoint;
@@ -21,6 +22,8 @@ public class AXD_PlayerStatus : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        dead = false;
+        LastCheckpoint = this.transform.position;
         invincibilityCoolDown = 1f;
         invincible = Time.deltaTime;
         LivingWorld = true;
@@ -29,10 +32,21 @@ public class AXD_PlayerStatus : MonoBehaviour
         Cacao = 0;
     }
 
+    private void Update()
+    {
+        if (HealthPoint <= 0)
+        {
+            this.transform.position = LastCheckpoint;
+            HealthPoint = MaxHealthPoint;
+            dead = true;
+        }
+    }
+
     public void TakingDamage()
     {
         if (Time.time > invincible)
         {
+            Debug.Log("Damage !");
             HealthPoint--;
             invincible = Time.time + invincibilityCoolDown;
         }
