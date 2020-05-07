@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Corn
+  - Cacao
+  - Checkpoint
+  - MovingPlatform
   layers:
   - Default
   - TransparentFX
@@ -15,9 +19,9 @@ TagManager:
   - 
   - Player
   - TempleGround
-  - 
-  - 
-  - 
+  - Collectibles
+  - CheckPoint
+  - MouvingPlatform
   - 
   - 
   - 

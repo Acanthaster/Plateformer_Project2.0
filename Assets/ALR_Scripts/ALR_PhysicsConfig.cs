@@ -12,6 +12,8 @@ public class ALR_PhysicsConfig : MonoBehaviour
     [Tooltip("Avec quel(s) layer(s) le Character peut collisionner ?")]
     public LayerMask characterCollisionMask;
 
+    public LayerMask movingPlatformMask;
+
     //Parameters
     public float gravity = -30f; // La gravity de base // Voir si on peut l'encadrer
     public float airFriction = 0f; // responsable de la fluidité des mouvements dans l'air ?
@@ -38,6 +40,11 @@ public class ALR_PhysicsConfig : MonoBehaviour
         {
             characterMask = LayerMask.GetMask("Player");
         }
+
+        /*if(movingPlatformMask == 0)
+        {
+            movingPlatformMask = LayerMask.GetMask("Player");
+        }*/
     }
 
 }

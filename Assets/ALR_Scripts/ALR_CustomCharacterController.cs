@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ALR_CustomCharacterController : MonoBehaviour
 {
+    public GameObject self;
 
     // Stock temporairement les points d'origine des Raycasts.
     protected struct RaycastOrigins 
@@ -90,6 +91,7 @@ public class ALR_CustomCharacterController : MonoBehaviour
     protected float minimumMoveThreshold = 0.0001f;
     protected float timeSinceFalling; //Pour tenir compte du temps pour le ghost jump
 
+    private bool isOnMovingPlatform = false;
     public bool isGhostJumping = false;
     public bool IgnoreFriction { get; set; } // CHECK NEEDED !!
     public bool Immobile { get; set; } // CHECK NEEDED !!
@@ -134,10 +136,19 @@ public class ALR_CustomCharacterController : MonoBehaviour
         PostMove();
         SetAnimations();
 
+        if (isOnMovingPlatform)
+        {
+            if(collisions.below == false)
+            {
+                transform.parent = null;
+                isOnMovingPlatform = false;
+            }
+        }
+
         if(collisions.onWall) 
         {
             UpdateRaycastOrigins();
-            CheckWall();
+            CheckOnWall();
         }
     }
 
@@ -192,7 +203,8 @@ public class ALR_CustomCharacterController : MonoBehaviour
 
                     return;
                 }
-                if (!(i == 0)) 
+
+                if (!(i == 10000)) 
                 {
                     
                     deltaMove.x = Mathf.Min(Mathf.Abs(deltaMove.x), (hit.distance - skinWidth)) * dirX;
@@ -201,13 +213,15 @@ public class ALR_CustomCharacterController : MonoBehaviour
                     // Check s'il y a collision horizontale avec un mur 
                     if (!collisions.onGround && angle >= 89f && !collisions.onWall) 
                     {
-
-                        collisions.onWall = true;
-                        collisions.left = dirX < 0;
-                        collisions.right = dirX > 0;
-                        //Debug.Log("ON WALL ! ");
-                        speed.x = 0;
-                        externalForce.x = 0;
+                        if (CheckWall()) 
+                        { 
+                            collisions.onWall = true;
+                            collisions.left = dirX < 0;
+                            collisions.right = dirX > 0;
+                            //Debug.Log("ON WALL ! ");
+                            speed.x = 0;
+                            externalForce.x = 0;
+                        }
                     } 
                     
                     else 
@@ -275,7 +289,7 @@ public class ALR_CustomCharacterController : MonoBehaviour
 
 
 
-        //MOVEMENTS
+    //MOVEMENTS
 
     // PreMove() est appelé dans la fonction Move()
     // On effectue un ensemble d'update qui sont importantes pour Move()
@@ -292,7 +306,7 @@ public class ALR_CustomCharacterController : MonoBehaviour
     // La fonction principale pour le mouvement
     public Vector2 Move (Vector2 deltaMove) 
     {
-        //Juste le temps de la fonction Move(), le player change de layer pour que les raycasts n'influe pas sur la fonction Move()
+        //Juste le temps de la fonction Move(), le player change de layer pour que les raycasts n'influent pas sur la fonction Move()
         int layer = gameObject.layer;
         gameObject.layer = Physics2D.IgnoreRaycastLayer;
 
@@ -419,28 +433,6 @@ public class ALR_CustomCharacterController : MonoBehaviour
 
                
             }
-
-           /* if (!collisions.onGround && !collisions.onWall)
-            {
-                Debug.Log("Ghost JUUUUUMP ! ");
-                float ghostJump = cData.maxGhostJump;
-                timeSinceFalling += Time.fixedDeltaTime;
-                
-
-                if (timeSinceFalling < ghostJump)
-                {
-                    float height = cData.maxJumpHeight;
-                    speed.y = Mathf.Sqrt(-2 * pConfig.gravity * height);
-                    externalForce.y = 0;
-                    timeSinceFalling = 0f; 
-                    animator.SetTrigger(ANIMATION_JUMP);
-
-
-                }
-
-
-
-            }*/
         }
     }
 
@@ -473,6 +465,13 @@ public class ALR_CustomCharacterController : MonoBehaviour
                 collisions.onGround = true;
                 collisions.onWall = false;
 
+                if (hit.collider.transform.tag == "MovingPlatform")
+                {
+                    Debug.Log("MOMMY ! ");
+                    transform.parent = hit.collider.transform;
+                    isOnMovingPlatform = true;
+                }
+
                 collisions.groundAngle = Vector2.Angle(hit.normal, Vector2.up);
                 collisions.groundDirection = Mathf.Sign(hit.normal.x);
                 collisions.groundLayer = hit.collider.gameObject.layer;
@@ -486,14 +485,81 @@ public class ALR_CustomCharacterController : MonoBehaviour
 
     }
 
-     protected void CheckWall() 
+    protected bool CheckWall()
+    {
+        float rayLength = 1f;
+        float rayCount = 3f;
+        float spSpacing = 0.75f;
+        float totalCheck = 0f;
+
+        Vector2 saveMiddleRayOrigPos = new Vector2(0, 0);
+        float lastSpacing = 0.4f;
+
+        bool belowRay = false;
+        bool middleRay = false;
+        bool upRay = false;
+        bool lastChanceRay = false;
+
+        // En fonction de l'orientation, on choisit un point de départ à Gauche ou à Droite
+        for (int i = 0; i < rayCount; i++)
+        {
+            Vector2 rayOrigin = raycastOrigins.bottomLeft + new Vector2(-0.25f, 0.25f);
+            rayOrigin += Vector2.up * (spSpacing * i);
+
+            if (i == 1)
+            {
+                saveMiddleRayOrigPos += rayOrigin;
+            }
+
+            RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right, rayLength, collisionMask);
+            Debug.DrawRay(rayOrigin, Vector2.right * rayLength, Color.magenta);
+
+            float angle = Vector2.Angle(hit.normal, Vector2.up);
+
+            if (hit)
+            {
+                switch (i)
+                {
+                    case 0:
+                        belowRay = true;
+                        break;
+
+                    case 1:
+                        middleRay = true;
+                        break;
+
+                    case 2:
+                        upRay = true;
+                        break;
+
+                    default:
+                        break;
+                }
+
+                if (belowRay && middleRay && upRay)
+                {
+                    return true;
+                }
+                else if (!belowRay && middleRay && upRay)
+                {
+                    hit = Physics2D.Raycast(saveMiddleRayOrigPos + new Vector2(0, -lastSpacing), Vector2.right, rayLength, collisionMask);
+                    Debug.DrawRay(saveMiddleRayOrigPos + new Vector2(0, -lastSpacing), Vector2.right * rayLength, Color.yellow);
+
+                    if (hit) return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    protected void CheckOnWall() 
     {
         float rayLength = 1f;
         float rayCount = 3f;
         float spSpacing = 0.5f;
         float totalCheck = 0f;
    
-            // On recréé des raycasts
         for (int i = 0; i < rayCount ; i++) 
         {
             Vector2 rayOrigin  = raycastOrigins.bottomLeft + new Vector2(-0.25f,0);
@@ -585,8 +651,9 @@ public class ALR_CustomCharacterController : MonoBehaviour
 
 
 
-            //VISUALS
-      private void SetAnimations() 
+
+    //VISUALS
+    private void SetAnimations() 
     {
         animator.SetFloat(ANIMATION_H_SPEED, speed.x + externalForce.x);
         animator.SetFloat(ANIMATION_V_SPEED, speed.y + externalForce.y);
