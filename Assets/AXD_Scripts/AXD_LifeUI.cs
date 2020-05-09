@@ -9,18 +9,16 @@ public class AXD_LifeUI : MonoBehaviour
     public Image icon;
     public AXD_LifeSprites sp;
     public AXD_PlayerStatus status;
-    Transform trans;
     GameObject lifePoints;
     int lastHP;
     void Start()
     {
         lastHP = status.MaxHealthPoint;
-        trans = GetComponent<Transform>();
         lifePoints = new GameObject("LifePoints");
         lifePoints.transform.SetParent(this.transform);
+        Debug.Log("Max HP : "+ status.MaxHealthPoint);
         for (int i = 0; i < status.MaxHealthPoint; i++)
         {
-             
             Instantiate(icon, new Vector3(transform.position.x-GetComponent<RectTransform>().rect.xMax + icon.rectTransform.rect.width + i * 50,
                 transform.position.y+icon.rectTransform.rect.height, transform.position.z), transform.rotation, lifePoints.transform);
         }

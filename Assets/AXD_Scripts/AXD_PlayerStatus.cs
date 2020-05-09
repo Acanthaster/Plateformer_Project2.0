@@ -19,8 +19,7 @@ public class AXD_PlayerStatus : MonoBehaviour
     public int Corn;
     public int Cacao;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         dead = false;
         LastCheckpoint = this.transform.position;

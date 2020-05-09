@@ -183,7 +183,7 @@ GameObject:
   - component: {fileID: 3672171853028679230}
   - component: {fileID: 3672171853028679201}
   m_Layer: 12
-  m_Name: MouvingPlatform
+  m_Name: hMov.Platform
   m_TagString: MovingPlatform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
