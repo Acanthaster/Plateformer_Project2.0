@@ -214,9 +214,20 @@ public class ALR_CustomCharacterController : MonoBehaviour
                     }
 
                     return;
-                }else if (LayerMask.LayerToName(hit.collider.gameObject.layer).Equals("Obstacles"))
+                }
+                else if (LayerMask.LayerToName(hit.collider.gameObject.layer).Equals("Obstacles") && hit.collider.CompareTag("FireRain"))
                 {
-                    pStatus.TakingDamage();
+                    Debug.Log("Fire rain");
+                    if (hit.collider.gameObject.GetComponent<AXD_FireRain>().damaging)
+                    {
+                        pStatus.TakeDamage();
+                    }
+
+                }
+                else if (LayerMask.LayerToName(hit.collider.gameObject.layer).Equals("Obstacles") && !hit.collider.CompareTag("FireRain"))
+                {
+                    Debug.Log("Pas Fire rain");
+                    pStatus.TakeDamage();
                 }
 
                 if (!(i == 100000)) 
@@ -292,12 +303,21 @@ public class ALR_CustomCharacterController : MonoBehaviour
 
                     return;
                 }
-                else if (LayerMask.LayerToName(hit.collider.gameObject.layer).Equals("Obstacles"))
+                else if (LayerMask.LayerToName(hit.collider.gameObject.layer).Equals("Obstacles") && hit.collider.CompareTag("FireRain"))
                 {
-                    pStatus.TakingDamage();
-                } 
-                
-                if(hit.collider.transform.tag == "MovingPlatform" && !isOnMovingPlatform)
+                    Debug.Log("Fire rain");
+                    if (hit.collider.gameObject.GetComponent<AXD_FireRain>().damaging)
+                    {
+                        pStatus.TakeDamage();
+                    }
+
+                } else if (LayerMask.LayerToName(hit.collider.gameObject.layer).Equals("Obstacles") && !hit.collider.CompareTag("FireRain"))
+                {
+                    Debug.Log("Pas Fire rain");
+                    pStatus.TakeDamage();
+                }
+
+                    if (hit.collider.transform.tag == "MovingPlatform" && !isOnMovingPlatform)
                 {
                     transform.parent = hit.collider.transform;
                     ColliderDistance2D dist = myCollider.Distance(hit.collider);

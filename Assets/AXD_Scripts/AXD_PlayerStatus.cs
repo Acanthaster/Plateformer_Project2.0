@@ -41,7 +41,7 @@ public class AXD_PlayerStatus : MonoBehaviour
         }
     }
 
-    public void TakingDamage()
+    public void TakeDamage()
     {
         if (Time.time > invincible)
         {

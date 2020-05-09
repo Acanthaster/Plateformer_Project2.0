@@ -32,7 +32,7 @@ public class AXD_Arrow : MonoBehaviour
             else if(LayerMask.LayerToName(hit.collider.gameObject.layer).Equals("Player"))
             {
                 Debug.Log("Joueur");
-                hit.collider.gameObject.GetComponent<AXD_PlayerStatus>().TakingDamage();
+                hit.collider.gameObject.GetComponent<AXD_PlayerStatus>().TakeDamage();
                 Destroy(this.gameObject);
             }
         }
