@@ -91,7 +91,8 @@ public class ALR_CustomCharacterController : MonoBehaviour
     protected float minimumMoveThreshold = 0.0001f;
     protected float timeSinceFalling; //Pour tenir compte du temps pour le ghost jump
 
-    private bool isOnMovingPlatform = false;
+    private bool isOnMovingPlatform = false; 
+    private bool replaceOnMovingPlatform = false;
     public bool isGhostJumping = false;
     public bool IgnoreFriction { get; set; } // CHECK NEEDED !!
     public bool Immobile { get; set; } // CHECK NEEDED !!
@@ -111,6 +112,7 @@ public class ALR_CustomCharacterController : MonoBehaviour
     private static readonly string ANIMATION_GROUNDED = "Grounded";
     private static readonly string ANIMATION_WALL = "OnWall";
     private static readonly string ANIMATION_FACING = "facingRight";
+    private static readonly string ANIMATION_H_MOVING = "hMoving";
     
     public bool FacingRight = true;
 
@@ -131,6 +133,8 @@ public class ALR_CustomCharacterController : MonoBehaviour
 
    	public void FixedUpdate()
     {
+        
+
         collisions.Reset();
         Move((TotalSpeed) * Time.fixedDeltaTime);
         PostMove();
@@ -138,14 +142,20 @@ public class ALR_CustomCharacterController : MonoBehaviour
 
         if (isOnMovingPlatform)
         {
-            if(collisions.below == false)
+            if (!replaceOnMovingPlatform)
+            {
+                //transform.position = transform.position +  new Vector3(0, 0.100f);
+                replaceOnMovingPlatform = true;
+            }
+            if (!CheckMovingPlatform())
             {
                 transform.parent = null;
                 isOnMovingPlatform = false;
+                replaceOnMovingPlatform = false;
             }
         }
 
-        if(collisions.onWall) 
+        if (collisions.onWall) 
         {
             UpdateRaycastOrigins();
             CheckOnWall();
@@ -180,6 +190,8 @@ public class ALR_CustomCharacterController : MonoBehaviour
             Debug.DrawRay(rayOrigin, Vector2.right * dirX * rayLength, Color.red);
             if (hit) 
             {
+               
+
                 float angle = Vector2.Angle(hit.normal, Vector2.up);
                 //Debug.Log("Collider : " + hit.collider + "\nLayer : " + LayerMask.LayerToName( hit.collider.gameObject.layer));
                 if (hit.collider.isTrigger && hit.collider.CompareTag("Corn") || hit.collider.CompareTag("Cacao") || hit.collider.CompareTag("Checkpoint"))
@@ -207,9 +219,9 @@ public class ALR_CustomCharacterController : MonoBehaviour
                     pStatus.TakingDamage();
                 }
 
-                if (!(i == 10000)) 
+                if (!(i == 100000)) 
                 {
-                    
+                  
                     deltaMove.x = Mathf.Min(Mathf.Abs(deltaMove.x), (hit.distance - skinWidth)) * dirX;
                     rayLength = Mathf.Min(Mathf.Abs(deltaMove.x) + skinWidth, hit.distance);
 
@@ -221,7 +233,6 @@ public class ALR_CustomCharacterController : MonoBehaviour
                             collisions.onWall = true;
                             collisions.left = dirX < 0;
                             collisions.right = dirX > 0;
-                            //Debug.Log("ON WALL ! ");
                             speed.x = 0;
                             externalForce.x = 0;
                         }
@@ -284,9 +295,23 @@ public class ALR_CustomCharacterController : MonoBehaviour
                 else if (LayerMask.LayerToName(hit.collider.gameObject.layer).Equals("Obstacles"))
                 {
                     pStatus.TakingDamage();
+                } 
+                
+                if(hit.collider.transform.tag == "MovingPlatform" && !isOnMovingPlatform)
+                {
+                    transform.parent = hit.collider.transform;
+                    ColliderDistance2D dist = myCollider.Distance(hit.collider);
+                    transform.position = transform.position + new Vector3(0, Mathf.Abs(dist.distance));
+                    isOnMovingPlatform = true;
+                    deltaMove.y = 0;
+                } 
+                
+                else
+                {
+                    deltaMove.y = (hit.distance - skinWidth) * dirY;
+                    rayLength = hit.distance;
                 }
-                deltaMove.y = (hit.distance - skinWidth) * dirY;
-                rayLength = hit.distance;  
+              
 
                 collisions.above = dirY > 0;
                 collisions.below = dirY < 0;
@@ -328,10 +353,10 @@ public class ALR_CustomCharacterController : MonoBehaviour
             HorizCollisions(ref deltaMove);
         }
 
+
         // Si player en contact avec un mur, on check les conditions de WallSlide
         if (collisions.onWall && cData.canWallSlide && TotalSpeed.y <= 0) 
-        {    
-            //Debug.Log("Wall Sliding !");      
+        {         
             externalForce.y = 0;
             speed.y = -cData.wallSlideSpeed;
         }
@@ -356,6 +381,8 @@ public class ALR_CustomCharacterController : MonoBehaviour
                 externalForce.x = 0;
             }
         }
+
+     
 
         // On remet le player dans son layer "Player"
         gameObject.layer = layer;
@@ -426,7 +453,6 @@ public class ALR_CustomCharacterController : MonoBehaviour
         {
             if (collisions.onGround || (cData.canWallJump && collisions.onWall) || isGhostJumping)
             {
-                //Debug.Log(isGhostJumping);
                 float height = cData.maxJumpHeight;
                 speed.y = Mathf.Sqrt(-2 * pConfig.gravity * height);
                 externalForce.y = 0;
@@ -467,29 +493,61 @@ public class ALR_CustomCharacterController : MonoBehaviour
             rayOrigin.y += skinWidth * 2;
 
             RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.down, skinWidth * 4f, collisionMask);
+            Debug.DrawRay(rayOrigin, Vector2.down * skinWidth * 4f, Color.cyan);
 
             if (hit) 
             {
                 collisions.onGround = true;
                 collisions.onWall = false;
 
-                if (hit.collider.transform.tag == "MovingPlatform")
-                {
-                    Debug.Log("MOMMY ! ");
-                    transform.parent = hit.collider.transform;
-                    isOnMovingPlatform = true;
-                }
-
                 collisions.groundAngle = Vector2.Angle(hit.normal, Vector2.up);
                 collisions.groundDirection = Mathf.Sign(hit.normal.x);
                 collisions.groundLayer = hit.collider.gameObject.layer;
                 collisions.vHit = hit;
                 collisions.below = true;
+
                 Debug.DrawRay(rayOrigin, Vector2.down * skinWidth * 2, Color.magenta);
                 break;
 
             }
         }
+
+    }
+
+    protected bool CheckMovingPlatform ()
+    {
+        float totalCheck = 0f;
+
+
+        for (int i = 0; i < vertiRayCount; i++)
+        {
+            //Pourquoi on commence par bottomLeft ?? ça me semble plus logique de commencer par bottomRight.....
+
+            Vector2 rayOrigin = raycastOrigins.bottomLeft;
+            rayOrigin +=  Vector2.right * (vertiRaySpacing * i);
+
+            RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.down, skinWidth * 6f, collisionMask);
+            Debug.DrawRay(rayOrigin, Vector2.down * skinWidth * 6f, Color.magenta);
+            if (hit.collider == null)
+            {
+                totalCheck++;
+            }
+        }
+
+        if (totalCheck == vertiRayCount)
+        {
+            //Debug.Log("JE SORS !");
+            return false;
+        } 
+        
+        else
+        {
+            //Debug.Log("JE RESTE !");
+            return true;
+        }
+
+        
+        //return false;
 
     }
 
@@ -668,6 +726,7 @@ public class ALR_CustomCharacterController : MonoBehaviour
         animator.SetBool(ANIMATION_GROUNDED, collisions.onGround);
         animator.SetBool(ANIMATION_WALL, collisions.hHit);
         animator.SetBool(ANIMATION_FACING, FacingRight);
+        animator.SetBool(ANIMATION_H_MOVING, speed.x != 0);
     }
 
     void FlipIt() 

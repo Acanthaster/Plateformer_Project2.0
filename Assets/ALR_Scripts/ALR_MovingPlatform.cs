@@ -21,7 +21,7 @@ public class ALR_MovingPlatform : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         platform.transform.position = Vector2.MoveTowards(platform.transform.position, currentPoint.position, Time.fixedDeltaTime * moveSpeed);
 
