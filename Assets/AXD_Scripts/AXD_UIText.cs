@@ -17,10 +17,13 @@ public class AXD_UIText : MonoBehaviour
     {
         if (this.tag.Equals("Corn") && !status.Corn.ToString().Equals(display.text))
         {
-            display.text = status.Corn.ToString();
+            AXD_MaxObjectCollectibles corns = GameObject.Find("Corns").GetComponent<AXD_MaxObjectCollectibles>();
+            display.text = status.Corn.ToString()+" / "+corns.getMaxCorn();
+
         }else if (this.tag.Equals("Cacao") && !status.Cacao.ToString().Equals(display.text))
         {
-            display.text = status.Cacao.ToString();
+            AXD_MaxObjectCollectibles cacaos = GameObject.Find("Cacaos").GetComponent<AXD_MaxObjectCollectibles>();
+            display.text = status.Cacao.ToString()+" / "+cacaos.getMaxCacao();
         }
     }
 }
