@@ -8,6 +8,8 @@ TagManager:
   - Cacao
   - Checkpoint
   - MovingPlatform
+  - Arrow
+  - FireRain
   layers:
   - Default
   - TransparentFX
