@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1380805443792231332}
   - component: {fileID: 3381179272603847732}
   - component: {fileID: 1961760957004815205}
-  - component: {fileID: 2506615527159297714}
   m_Layer: 0
   m_Name: Launcher
   m_TagString: Untagged
@@ -72,7 +71,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e4cd32598c059d54ca8d0d92030cd83b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f7223d53363ca7c479971ca35b04206d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -98,22 +97,3 @@ MonoBehaviour:
   toLaunch: {fileID: 3562714326063873702, guid: be59cc6a91708d24f9790d33b0864060,
     type: 3}
   launchingRythm: 1
---- !u!95 &2506615527159297714
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4045778883329485234}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 7c605a883def35d4191aff24e1c0b7c4, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0

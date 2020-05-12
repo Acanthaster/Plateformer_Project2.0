@@ -8,7 +8,6 @@ public class AXD_Launcher : MonoBehaviour
     public float launchingRythm;
     private float lastLaunch;
     private bool stop;
-
     // Start is called before the first frame update
     void Start()
     {

@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 4266253336768226207}
   - component: {fileID: 205852522936481569}
   - component: {fileID: 4550342873722399373}
-  - component: {fileID: 393321340369426390}
   m_Layer: 10
   m_Name: Corn
   m_TagString: Corn
@@ -72,7 +71,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 8a560cfe24e2abe41beb2e1729e33726, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5fcf32a7496510646a5c29c8085cf904, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -96,25 +95,6 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.04}
+  m_Offset: {x: 0.0051345825, y: 0}
   serializedVersion: 2
-  m_Radius: 0.59
---- !u!95 &393321340369426390
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6356598883059101136}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c357f04405866ff4ba8ce05c88240fd6, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_Radius: 0.6220894
