@@ -7,12 +7,9 @@ public class AXD_Arrow : MonoBehaviour
     public float speed;
     private SpriteRenderer sr;
     public float detectionDistance;
-    public List<Sprite> sprites;
-    private Directions dir;
-    public RaycastHit2D hit;
-    private Vector2 vDir;
+
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         sr = GetComponent<SpriteRenderer>();
     }
@@ -20,43 +17,10 @@ public class AXD_Arrow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        if(dir == Directions.up)
-        {
-            hit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + (sr.sprite.rect.height / 2 / sr.sprite.pixelsPerUnit) - detectionDistance / 2 / sr.sprite.pixelsPerUnit),
-            Vector2.up * detectionDistance / sr.sprite.pixelsPerUnit, detectionDistance / sr.sprite.pixelsPerUnit);
-            Debug.DrawRay(new Vector2(transform.position.x, transform.position.y + (sr.sprite.rect.height / 2 / sr.sprite.pixelsPerUnit) - detectionDistance / 2 / sr.sprite.pixelsPerUnit),
-                Vector2.up * detectionDistance / sr.sprite.pixelsPerUnit, Color.blue);
-            
-        }
-        else if (dir == Directions.right)
-        {
-            hit = Physics2D.Raycast(new Vector2(transform.position.x + (sr.sprite.rect.width / 2 / sr.sprite.pixelsPerUnit) - detectionDistance / 2 / sr.sprite.pixelsPerUnit, transform.position.y),
-            Vector2.right * detectionDistance / sr.sprite.pixelsPerUnit, detectionDistance / sr.sprite.pixelsPerUnit);
-            Debug.DrawRay(new Vector2(transform.position.x + (sr.sprite.rect.width / 2 / sr.sprite.pixelsPerUnit) - detectionDistance / 2 / sr.sprite.pixelsPerUnit, transform.position.y),
-                Vector2.right * detectionDistance / sr.sprite.pixelsPerUnit, Color.blue);
-        }
-        else if (dir == Directions.down)
-        {
-            hit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y - (sr.sprite.rect.height / 2 / sr.sprite.pixelsPerUnit) + detectionDistance / 2 / sr.sprite.pixelsPerUnit),
-            Vector2.down * detectionDistance / sr.sprite.pixelsPerUnit, detectionDistance / sr.sprite.pixelsPerUnit);
-            Debug.DrawRay(new Vector2(transform.position.x, transform.position.y - (sr.sprite.rect.height / 2 / sr.sprite.pixelsPerUnit) + detectionDistance / 2 / sr.sprite.pixelsPerUnit),
-                Vector2.down * detectionDistance / sr.sprite.pixelsPerUnit, Color.blue);
-            
-        }
-        else if (dir == Directions.left)
-        {
-            hit = Physics2D.Raycast(new Vector2(transform.position.x - (sr.sprite.rect.width / 2 / sr.sprite.pixelsPerUnit) + detectionDistance / 2 / sr.sprite.pixelsPerUnit, transform.position.y),
+        RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x - (sr.sprite.rect.width / 2 / sr.sprite.pixelsPerUnit) + detectionDistance / 2 / sr.sprite.pixelsPerUnit, transform.position.y),
             Vector2.left * detectionDistance / sr.sprite.pixelsPerUnit, detectionDistance / sr.sprite.pixelsPerUnit);
-            Debug.DrawRay(new Vector2(transform.position.x - (sr.sprite.rect.width / 2 / sr.sprite.pixelsPerUnit) + detectionDistance / 2 / sr.sprite.pixelsPerUnit, transform.position.y),
-                Vector2.left * detectionDistance / sr.sprite.pixelsPerUnit, Color.blue);
-        }
-        else
-        {
-            Debug.Log("What the fuck man ?");
-
-        }
-        
+        Debug.DrawRay(new Vector2(transform.position.x - (sr.sprite.rect.width / 2 / sr.sprite.pixelsPerUnit) + detectionDistance / 2 / sr.sprite.pixelsPerUnit, transform.position.y),
+            Vector2.left*detectionDistance/sr.sprite.pixelsPerUnit, Color.blue);
         if(hit)
         {
             Debug.Log("Arrow Layer : "+LayerMask.LayerToName(hit.collider.gameObject.layer));
@@ -72,24 +36,8 @@ public class AXD_Arrow : MonoBehaviour
                 Destroy(this.gameObject);
             }
         }
-        if(dir == Directions.up)
-        {
-            vDir = Vector2.up;
-        }else if(dir == Directions.right)
-        {
-            vDir = Vector2.right;
-        }
-        else if(dir == Directions.down)
-        {
-            vDir = Vector2.down;
-        }
-        else if(dir == Directions.left)
-        {
-            vDir = Vector2.left;
-        }
-        transform.Translate(vDir*Time.deltaTime*speed);
-    }
 
+<<<<<<< HEAD
     public void SetDirection(Directions pDir)
     {
         dir = pDir;
@@ -110,5 +58,8 @@ public class AXD_Arrow : MonoBehaviour
         {
             sr.sprite = sprites[0];
         }
+=======
+        transform.Translate(Vector3.left*Time.deltaTime*speed);
+>>>>>>> parent of f324b5a... Fixing arrow launcher
     }
 }

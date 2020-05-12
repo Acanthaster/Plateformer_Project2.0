@@ -95,9 +95,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ac58056c68611e4b8313c245502afab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  toLaunch: {fileID: 7198091733479922127, guid: f300dde60501fb549b6d94bf723c1110,
+  toLaunch: {fileID: 3562714326063873702, guid: be59cc6a91708d24f9790d33b0864060,
     type: 3}
   launchingRythm: 1
+<<<<<<< HEAD
 --- !u!95 &2506615527159297714
 Animator:
   serializedVersion: 3
@@ -118,3 +119,5 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
   direction: 0
+=======
+>>>>>>> parent of f324b5a... Fixing arrow launcher
