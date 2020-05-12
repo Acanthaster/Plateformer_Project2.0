@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Directions { up,right,down,left}
 public class AXD_Launcher : MonoBehaviour
 {
     public Transform toLaunch;
     public float launchingRythm;
     private float lastLaunch;
-    private bool stop;
     // Start is called before the first frame update
     void Start()
     {
-        stop = false;
         lastLaunch = 0;
     }
 
@@ -20,12 +19,8 @@ public class AXD_Launcher : MonoBehaviour
     {
         if (Time.time > lastLaunch + launchingRythm)
         {
-            if (!stop)
-            {
-                Launch();
-                lastLaunch = Time.time;
-                stop = true;
-            }
+            Launch();
+            lastLaunch = Time.time;
 
         }
     }
