@@ -95,23 +95,17 @@ public class AXD_Arrow : MonoBehaviour
         dir = pDir;
         if (dir == Directions.up)
         {
-            if(sprites[1] != null)
-            {
-                sr.sprite = sprites[1];
-            }
-            else
-            {
-                Debug.Log("Plait-il ?");
-            }
-            
-        }else if(dir == Directions.right)
+            sr.sprite = sprites[1];
+            sr.flipX = true;
+        }
+        else if(dir == Directions.right)
         {
             sr.sprite = sprites[0];
             sr.flipY = true;
         }else if (dir == Directions.down)
         {
             sr.sprite = sprites[1];
-            sr.flipX = true;
+            
         }else if(dir == Directions.left)
         {
             sr.sprite = sprites[0];

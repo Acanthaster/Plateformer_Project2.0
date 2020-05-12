@@ -12,7 +12,6 @@ public class AXD_TimeHandling : MonoBehaviour
     void Start()
     {
         seconds = 0;
-        counting = true;
     }
 
     public void StartCounting()
